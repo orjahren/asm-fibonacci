@@ -70,7 +70,7 @@ _start:
         call _print_new_line
 
         # Print nth fibonacci number
-        add $'0', a(%rip)
+        addl $'0', a(%rip)
         movl $4, %eax
         movl $1, %ebx
         movl $a, %ecx
