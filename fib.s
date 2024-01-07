@@ -121,10 +121,6 @@ print_fibonacci_str:
 	.cfi_endproc
 .LFE1:
 	.size	print_fibonacci_str, .-print_fibonacci_str
-	.section	.rodata
-.LC3:
-	.string	"%d"
-	.text
 	.globl	main
 	.type	main, @function
 main:
@@ -169,11 +165,26 @@ main:
 	call	printf
 	movl	$0, %eax
 	call	print_new_line
-	movl	a(%rip), %eax
-	movl	%eax, %esi
-	movl	$.LC3, %edi
-	movl	$0, %eax
-	call	printf
+#APP
+# 38 "fib.c" 1
+	addl $'0', a(%rip)
+# 0 "" 2
+# 39 "fib.c" 1
+	movl $4, %eax
+# 0 "" 2
+# 40 "fib.c" 1
+	movl $1, %ebx
+# 0 "" 2
+# 41 "fib.c" 1
+	movl $a, %ecx
+# 0 "" 2
+# 42 "fib.c" 1
+	movl $1, %edx
+# 0 "" 2
+# 43 "fib.c" 1
+	int $0x80
+# 0 "" 2
+#NO_APP
 	movl	$0, %eax
 	call	print_new_line
 	movl	$0, %eax

@@ -35,7 +35,12 @@ done:
     print_new_line();
     printf(done_str);
     print_new_line();
-    printf("%d", a);
+    __asm__("addl $'0', a(%rip)");
+    __asm__("movl $4, %eax");
+    __asm__("movl $1, %ebx");
+    __asm__("movl $a, %ecx");
+    __asm__("movl $1, %edx");
+    __asm__("int $0x80");
     print_new_line();
     return 0;
 }
