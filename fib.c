@@ -22,4 +22,18 @@ int main()
 {
     print_fibonacci_str();
     print_new_line();
+loop:
+    print_fibonacci_str();
+    c = a;
+    a = b;
+    b = c + b;
+    fib_counter++;
+    if (fib_counter == fib_target)
+        goto done;
+    goto loop;
+done:
+    print_new_line();
+    printf(done_str);
+    print_new_line();
+    return 0;
 }
