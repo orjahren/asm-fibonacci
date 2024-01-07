@@ -27,27 +27,28 @@ _print_new_line:
         ret
 
 _start:
+        # Print enty message
         movl $4, %eax
         movl $1, %ebx
         movl $str, %ecx
         movl $str_len, %edx
         int $0x80
 
-        # print newLien
         call _print_new_line
 
         .loop:
-        movl $a, $c
-        movl $b, $a
-        movl $c, $b
-        addl $c, $b
-        addl $1, $fib_counter
+        movl $a, c
+        movl $b, a
+        movl $c, b
+        addl $c, b
+        addl $1, fib_counter
         test $fib_counter, $fib_target
         jz .done
         ja .loop
 
         .done:
         call _print_new_line
+        # Print nth fibonacci number
         movl $4, %eax
         movl $1, %ebx
         movl $a, %ecx
