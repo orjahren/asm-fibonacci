@@ -33,7 +33,7 @@ fib_counter:
 	.type	fib_target, @object
 	.size	fib_target, 4
 fib_target:
-	.long	5
+	.long	6
 	.globl	entry_str
 	.section	.rodata
 .LC0:
@@ -121,6 +121,10 @@ print_fibonacci_str:
 	.cfi_endproc
 .LFE1:
 	.size	print_fibonacci_str, .-print_fibonacci_str
+	.section	.rodata
+.LC3:
+	.string	"%d"
+	.text
 	.globl	main
 	.type	main, @function
 main:
@@ -161,6 +165,13 @@ main:
 	call	print_new_line
 	movq	done_str(%rip), %rax
 	movq	%rax, %rdi
+	movl	$0, %eax
+	call	printf
+	movl	$0, %eax
+	call	print_new_line
+	movl	a(%rip), %eax
+	movl	%eax, %esi
+	movl	$.LC3, %edi
 	movl	$0, %eax
 	call	printf
 	movl	$0, %eax

@@ -3,7 +3,7 @@ int a = 0;
 int c = 0;
 int b = 1;
 int fib_counter = 0;
-int fib_target = 5;
+int fib_target = 6;
 char *entry_str = "Fibonacci";
 int entry_str_len = 9;
 char *done_str = "Done";
@@ -34,6 +34,8 @@ loop:
 done:
     print_new_line();
     printf(done_str);
+    print_new_line();
+    printf("%d", a);
     print_new_line();
     return 0;
 }

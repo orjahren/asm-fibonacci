@@ -6,7 +6,7 @@ a: .long 0
 b: .long 1
 c: .long 0
 fib_counter: .long 0
-fib_target: .long 5
+fib_target: .long 6
 entry_str: .ascii "Fibonacci!"
 entry_str_len = . - entry_str
 done_str: .ascii "Done!"
@@ -57,7 +57,7 @@ _start:
 
         # If not equal, loop
         je .done
-        jne .loop
+        ja .loop
 
         .done:
         call _print_new_line
