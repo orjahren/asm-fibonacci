@@ -6,7 +6,7 @@ a: .long 0
 b: .long 1
 c: .long 0
 fib_counter: .long 0
-fib_target: .long 10
+fib_target: .long 5
 entry_str: .ascii "Fibonacci!"
 entry_str_len = . - entry_str
 done_str: .ascii "Done!"
@@ -42,18 +42,22 @@ _start:
         movl $a, c
         movl $b, a
         movl $c, b
-        addl $c, b
+        addl $a, b
 
         # increment fib counter
-        addl $1, fib_counter
+        #addl $1, fib_counter
+        movl $fib_counter, %ebx   # Load the value of fib_counter into EBX register
+        addl $1, %ebx            # Add immediate value 1 to the contents of EBX register
+        movl %ebx, fib_counter   # Store the result back into fib_counter
+
         # compare with target
         movl $fib_counter, %eax
         movl $fib_target, %ebx
         cmp %eax, %ebx
 
         # If not equal, loop
+        je .done
         jne .loop
-        #je .done
 
         .done:
         call _print_new_line
