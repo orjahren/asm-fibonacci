@@ -38,26 +38,24 @@ _start:
         call _print_new_line
 
         .loop:
-        call _print_fibonacci_str
-        movl $a, c
-        movl $b, a
-        movl $c, b
-        addl $a, b
-
-        # increment fib counter
-        #addl $1, fib_counter
-        movl $fib_counter, %ebx   # Load the value of fib_counter into EBX register
-        addl $1, %ebx            # Add immediate value 1 to the contents of EBX register
-        movl %ebx, fib_counter   # Store the result back into fib_counter
-
-        # compare with target
-        movl $fib_counter, %eax
-        movl $fib_target, %ebx
-        cmp %eax, %ebx
-
-        # If not equal, loop
-        je .done
-        ja .loop
+        movl	$0, %eax
+        call	_print_fibonacci_str
+        movl	a(%rip), %eax
+        movl	%eax, c(%rip)
+        movl	b(%rip), %eax
+        movl	%eax, a(%rip)
+        movl	c(%rip), %edx
+        movl	b(%rip), %eax
+        addl	%edx, %eax
+        movl	%eax, b(%rip)
+        movl	fib_counter(%rip), %eax
+        addl	$1, %eax
+        movl	%eax, fib_counter(%rip)
+        movl	fib_counter(%rip), %edx
+        movl	fib_target(%rip), %eax
+        cmpl	%eax, %edx
+        je	.done
+        jmp	.loop
 
         .done:
         call _print_new_line
