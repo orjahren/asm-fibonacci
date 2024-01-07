@@ -7,9 +7,9 @@ b: .long 1
 c: .long 0
 fib_counter: .long 0
 fib_target: .long 10
-entry_str: .ascii "Fibonacci!\n"
+entry_str: .ascii "Fibonacci!"
 entry_str_len = . - entry_str
-done_str: .ascii "Done!\n"
+done_str: .ascii "Done!"
 done_str_len = . - done_str
 newline: .ascii "\n"
 
@@ -30,6 +30,7 @@ _print_fibonacci_str:
         movl $entry_str, %ecx
         movl $entry_str_len, %edx
         int $0x80
+        call _print_new_line
         ret
 _start:
 
