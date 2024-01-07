@@ -23,26 +23,36 @@ _print_new_line:
         movl $1, %edx
         int $0x80
         ret
-
-_start:
+_print_fibonacci_str:
         # Print enty message
         movl $4, %eax
         movl $1, %ebx
         movl $entry_str, %ecx
         movl $entry_str_len, %edx
         int $0x80
+        ret
+_start:
 
+        call _print_fibonacci_str
         call _print_new_line
 
         .loop:
+        call _print_fibonacci_str
         movl $a, c
         movl $b, a
         movl $c, b
         addl $c, b
+
+        # increment fib counter
         addl $1, fib_counter
-        test $fib_counter, $fib_target
-        jz .done
-        ja .loop
+        # compare with target
+        movl $fib_counter, %eax
+        movl $fib_target, %ebx
+        cmp %eax, %ebx
+
+        # If not equal, loop
+        jne .loop
+        #je .done
 
         .done:
         call _print_new_line
